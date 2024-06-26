@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  app:
+    container_name: reservation-form
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./app
+        target: /usr/src/app
+      #"reservation-form"の部分がプロジェクト名になる
+    command: sh -c "cd reservation-form && npm start"
+    ports:
+      - 3000:3000
+    stdin_open: true #標準入力をコンテナと紐付ける
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true # ホットリロードを行う設定
